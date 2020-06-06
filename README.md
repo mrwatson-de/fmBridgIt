@@ -8,4 +8,4 @@ We are planning an API. See the [API definition document](API_definition.md).
 Watch this space.
 
 [fmBridgIt repo]:https://github.com/mrwatson-de/fmBridgIt
-[fmBridgIt logo]:./fmBridgIt_logo.png
+[fmBridgIt logo]:fmBridgIt_logo.png
