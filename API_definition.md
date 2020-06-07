@@ -3,7 +3,9 @@
 # fmBridgIt API definition
 [The beginnings of an API between FileMaker 19 and WebViewers]
 
-This document defines the fmBridgIt API between FileMaker 19 and a WebViewer.
+This document will define the fmBridgIt API between FileMaker 19 and a WebViewer.
+
+Document status: draft / proposal
 
 ## Aims & Objectives
 
@@ -31,7 +33,9 @@ The ultimate aim is:
   - shall NOT list all script parameters + returns // (discuss)
   - Scripts shall be structured after the rules of FileMaker modules [link?]
   - Scripts shall be seperated into public and private folders
-  
+    - Only public scripts may be called from FileMaker
+    - Public script names must be stable ay be called from FileMaker
+    - Private scripts are internal to the module
 - JSON parameters
   - All JSON parameters will use snake_case (which is *far* more consistent than camelCase! - i.e. 'FileMakery')
   - where possible parameter names should be chosen under consideration of the following two aims, whereby the :
@@ -48,7 +52,106 @@ The ultimate aim is:
 
 @ToDo
 
+## Nomenclature
+
+I would like to introduce the 'characters' of our story:
+
+    Flo' - (Flow[/Florian]) refers to the flow of a FileMaker script
+    Widget - refers to the WebViewer
+    BridgIt - refers to fmBridgIt, ... but because BridgIt has a split personality
+    BridgIt.F - refers to the FileMaker side of fmBridgIt
+    BridgIt.W - refers to the Webviewer side of fmBridgIt
+
+These guys will help to understand and visualize the processes at large here
+
+For example, a typical conversation may look like this
+
+    User to Flo': "Say, Flo', what is the time in Berlin just now?"
+    Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin just now?"
+    BridgIt to Widget: "Say, Widget, what is the time in Berlin just now?"
+    Widget to moment.js: "Hey, moment.js, what is the time in Berlin just now?"
+    moment.js to Widget: "It's 'June 4th 2020, 5:29:14 pm'"
+    Widget to BridgIt: "It's 'June 4th 2020, 5:29:14 pm'"
+    BridgIt to Flo': "It's 'June 4th 2020, 5:29:14 pm'"
+    Flo' to User: "It's 'June 4th 2020, 5:29:14 pm'"
+    User thinks "Thanks Flo', then I need to take the Bluepill at dotfmp immediately!"
+
+Under the surface BridgIt's split personality - which only she knows about - will be doing something like this
+
+    User to Flo': "Say, Flo', what is the time in Berlin just now?"
+    Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin just now?"
+    --
+    BridgIt.F hears Flo'
+    BridgIt.F logs this under question #1234
+    BridgIt.F to BridgIt.W: "Say, BridgIt.W, can you ask Widget, what the time is in Berlin just now - then call me back with the answer to question #1234"
+    (BridgIt.F waits for a call regarding question #1234)
+    BridgIt.W turns to Widget…
+    --
+    BridgIt to Widget: "Say, Widget, what is the time in Berlin just now?"
+    Widget to moment.js: "Hey, moment.js, what is the time in Berlin just now?"
+    moment.js to Widget: "It's 'June 4th 2020, 5:29:14 pm'"
+    Widget to BridgIt: "It's 'June 4th 2020, 5:29:14 pm'"
+    --
+    BridgIt.W hears Widget…
+    BridgIt.W calls BridgIt.F and says the answer to question #1234 is "It's 'June 4th 2020, 5:29:14 pm'"
+    BridgIt.F checks she has received the answer to question #1234 and then proceeds
+    BridgIt.F turns to Flo'
+    --
+    BridgIt to Flo': "It's 'June 4th 2020, 5:29:14 pm'"
+    Flo' to User: "It's 'June 4th 2020, 5:29:14 pm'"
+    User thinks "Thanks Flo', then I need to take the Bluepill at dotfmp immediately!"
+
+Note that:
+- Flo' only sees BridgIt (and doesn't really know she has a split personality)
+- When he talks to BridgIt he is actually talking to BridgIt.F 
+- Similarly Widget only talks to BridgIt.W
+- In general Flo' and Widget are morning grumps and tend to throw a tantrum if they speak to each other directly before they've had their morning coffee
+- That's why they speak to each other via BridgIt who ensures everybody has had their morning coffee first
+- During the day Flo' and Widget can speak to each other directly, but their relationship is so cool they never get an answer. So long as they only want to shoot off at each other - and are sure that they've had their morning coffee - that's fine.
+
+
 ## Use Cases
+
+(draft)
+
+This bit is still confused and the style needs to be decided
+
+---
+
+### Use Case "Hello JavaScript Button (FM->WebV)"
+
+From a button in the FileMaker layout pass a message to the web viewer and display in web viewer.
+
+### Use Case "Hello FileMaker Button (WebV->FM)"
+
+From a button in the WebViewer call a FileMaker Script and display in FileMaker.
+
+---
+
+### Use Case "Synchronous JavaScript call with parameter and result (FM->WebV->FM)"
+
+The user-developer wishes to call a function in a web-viewer to process the parameter and return the result *without* breaking the script flow.
+
+Example case "increment"
+
+
+### Use Case "Synchronous FileMaker Script Button (WebV->FM-WebV)"
+
+From a button in the WebViewer call a FileMaker Script and display in FileMaker.
+
+---
+
+### Use Case "WebViewer is ready event"
+
+Disable a WebV-Action Button in FileMaker until the target function is available"
+
+Since it may be bad UX to offer the user buttons in FileMaker to press, which block until the web viewer is ready to process them, it may be desirable 
+
+While a webviewer is loading or 
+From a button in the FileMaker layout pass a message to the web viewer and display in web viewer.
+
+
+
 
 @ToDo
 
