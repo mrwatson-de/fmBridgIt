@@ -12,7 +12,7 @@ Document status: draft / proposal
 (draft)
 
 - make the new web integration functionality in fm 19 as 'FileMakery' as possible, that is:
-  - make calling a JavaScript function from FileMaker as easy as calling a script
+  - make calling a JavaScript function as easy as calling a script
   - make calling a FileMaker script as easy as calling a JavaScript function
 - create a single module to implement this, comprising 
   1. a FileMaker module, fmBridgIt and
@@ -64,12 +64,12 @@ I would like to introduce the actors of our story:
 
 These guys will help to understand and visualize the processes we find  here
 
-For example, a typical conversation may look like this:
+For example, a typical conversation, "What is the time in Berlin at the moment?", may look like this:
 
-    User to Flo': "Say, Flo', what is the time in Berlin just now?"
-    Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin just now?"
-    BridgIt to Widget: "Say, Widget, what is the time in Berlin just now?"
-    Widget to moment.js: "Hey, moment.js, what is the time in Berlin just now?"
+    User to Flo': "Say, Flo', what is the time in Berlin at the moment?"
+    Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin at the moment?"
+    BridgIt to Widget: "Say, Widget, what is the time in Berlin at the moment?"
+    Widget to moment.js: "Hey, moment.js, what is the time in Berlin at the moment?"
     moment.js to Widget: "It's 'June 4th 2020, 5:29:14 pm'"
     Widget to BridgIt: "It's 'June 4th 2020, 5:29:14 pm'"
     BridgIt to Flo': "It's 'June 4th 2020, 5:29:14 pm'"
@@ -78,22 +78,22 @@ For example, a typical conversation may look like this:
 
 Under the surface BridgIt's split personality - which only she knows about - will be doing something like this
 
-    User to Flo': "Say, Flo', what is the time in Berlin just now?"
-    Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin just now?"
+    User to Flo': "Say, Flo', what is the time in Berlin at the moment?"
+    Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin at the moment?"
     --
     BridgIt.fm hears Flo'
     BridgIt.fm logs this under question #1234
-    BridgIt.fm to BridgIt.W: "Say, BridgIt.W, can you ask Widget, what the time is in Berlin just now - then call me back with the answer to question #1234"
+    BridgIt.fm to BridgIt.js: "Say, BridgIt.js, can you ask Widget, what the time is in Berlin at the moment - then call me back with the answer to question #1234"
     (BridgIt.fm waits for a call regarding question #1234)
     BridgIt.js turns to Widget…
     --
-    BridgIt to Widget: "Say, Widget, what is the time in Berlin just now?"
-    Widget to moment.js: "Hey, moment.js, what is the time in Berlin just now?"
+    BridgIt to Widget: "Say, Widget, what is the time in Berlin at the moment?"
+    Widget to moment.js: "Hey, moment.js, what is the time in Berlin at the moment?"
     moment.js to Widget: "It's 'June 4th 2020, 5:29:14 pm'"
     Widget to BridgIt: "It's 'June 4th 2020, 5:29:14 pm'"
     --
     BridgIt.js hears Widget…
-    BridgIt.js calls BridgIt.F and says the answer to question #1234 is "It's 'June 4th 2020, 5:29:14 pm'"
+    BridgIt.js calls BridgIt.fm and says the answer to question #1234 is "It's 'June 4th 2020, 5:29:14 pm'"
     BridgIt.fm checks she has received the answer to question #1234 and then proceeds
     BridgIt.fm turns to Flo'
     --
@@ -102,46 +102,75 @@ Under the surface BridgIt's split personality - which only she knows about - wil
     User thinks "Thanks Flo', then I need to take the Bluepill at dotfmp immediately!"
 
 Note that:
+
 - Flo' only sees BridgIt (and doesn't really know she has a split personality)
 - When he talks to BridgIt he is actually talking to BridgIt.fm
 - Similarly Widget only talks to BridgIt.js
 - In general Flo' and Widget are morning grumps and tend to throw a tantrum if they speak to each other directly before they've had their morning coffee
 - That's why they speak to each other via BridgIt who ensures everybody has had their morning coffee first
-- During the day Flo' and Widget can speak to each other directly, but their relationship is so cool they never get an answer. So long as they only want to shoot off at each other - and are sure that they've had their morning coffee - that's fine.
+- During the day Flo' and Widget can speak to each other directly, but their relationship is so cool they never get an answer. So long as they only want to shoot off at each other and are sure that they've had their morning coffee - that's fine.
 
 
 ## Use Cases
 
 (draft)
 
-This bit is still confused and the style needs to be decided
+### Use Case - From FileMaker call a JavaScript function asynchronously 
+### Use Case - From FileMaker call a JavaScript function asynchronously, continuing execution in a script defined in the WebViewer, passing the result forward as a parameter
+### Use Case - From FileMaker call a JavaScript function asynchronously, passing a single callback script
+### Use Case - From FileMaker call a JavaScript function asynchronously, passing two callback scripts for success and failure
+
+### Use Case - From FileMaker call a JavaScript function synchronously and receive a result back
+### Use Case - From FileMaker call a JavaScript function synchronously and receive a result back within a certain timeout
+
+### Use Case - From WebViewer call a FileMaker script asynchronously 
+### Use Case - From WebViewer call a FileMaker script asynchronously, continuing execution in a function defined in the FileMaker Script, passing the result forward as a parameter
+### Use Case - From WebViewer call a FileMaker script asynchronously, passing a single callback script
+### Use Case - From WebViewer call a FileMaker script asynchronously, passing two callback scripts for success and failure
+
+Need an async wrapper/app:
+### Use Case - From WebViewer call a FileMaker script synchronously and receive a result back
+### Use Case - From WebViewer call a FileMaker script synchronously and receive a result back within a certain timeout
+
+
+### Use Case - From WebViewer call a FileMaker script to run on server asynchronously 
+This would make it possible to pass data back to FileMaker without 'bothering' the current user layout context.
+
+### Use Case - From WebViewer call a FileMaker script to run on server synchronously and receive a result back within a certain timeout 
+This may be useful where the webviewer needs large/heavy processing or requests.
+
 
 ---
+## Test Cases
 
-### Use Case "Hello JavaScript Button (FM->WebV)"
+(draft)
+
+This bit is still confused and the style needs to be decided
+
+### Test Case "Hello JavaScript Button (FM->WebV)"
 
 From a button in the FileMaker layout pass a message to the web viewer and display in web viewer.
 
-### Use Case "Hello FileMaker Button (WebV->FM)"
+### Test Case "Hello FileMaker Button (WebV->FM)"
 
 From a button in the WebViewer call a FileMaker Script and display in FileMaker.
 
 ---
 
-### Use Case "Synchronous JavaScript call with parameter and result (FM->WebV->FM)"
+### test Case "Synchronous JavaScript call with parameter and result (FM->WebV->FM)"
 
 The user-developer wishes to call a function in a web-viewer to process the parameter and return the result *without* breaking the script flow.
 
 Example case "increment"
 
 
-### Use Case "Synchronous FileMaker Script Button (WebV->FM-WebV)"
+### Test Case "Synchronous FileMaker Script Button (WebV->FM-WebV)"
 
 From a button in the WebViewer call a FileMaker Script and display in FileMaker.
 
 ---
 
-### Use Case "WebViewer is ready event"
+### Test Case "WebViewer is ready event"
 
 Disable a WebV-Action Button in FileMaker until the target function is available"
 
