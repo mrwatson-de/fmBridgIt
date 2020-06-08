@@ -15,8 +15,8 @@ Document status: draft / proposal
   - make calling a JavaScript function from FileMaker as easy as calling a script
   - make calling a FileMaker script as easy as calling a JavaScript function
 - create a single module to implement this, comprising 
-  1. a FileMaker module, and
-  2. a JavaScript module/object
+  1. a FileMaker module, fmBridgIt and
+  2. a JavaScript module/object, fmBridgIt.js / fmBridgit
 - define a simple, unambiguous, future-proof and extensible API
 
 The ultimate aim is:
