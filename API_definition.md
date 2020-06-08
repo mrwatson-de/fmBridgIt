@@ -29,7 +29,7 @@ The ultimate aim is:
 (draft)
 
 - FileMaker Script names 
-  - shall all start with 'fmBridgIt' (in order to prevent clashes with other scripts)
+  - shall all start with 'fmBridgIt' or '_fmBridgIt' (in order to prevent clashes with other scripts)
   - shall NOT list all script parameters + returns // (discuss)
   - Scripts shall be structured after the rules of FileMaker modules [link?]
   - Scripts shall be seperated into public and private folders
@@ -54,17 +54,17 @@ The ultimate aim is:
 
 ## Nomenclature
 
-I would like to introduce the 'characters' of our story:
+I would like to introduce the actors of our story:
 
     Flo' - (Flow[/Florian]) refers to the flow of a FileMaker script
     Widget - refers to the WebViewer
     BridgIt - refers to fmBridgIt, ... but because BridgIt has a split personality
-    BridgIt.F - refers to the FileMaker side of fmBridgIt
-    BridgIt.W - refers to the Webviewer side of fmBridgIt
+    BridgIt.fm - refers to the FileMaker side of fmBridgIt
+    BridgIt.js - refers to the Webviewer side of fmBridgIt
 
-These guys will help to understand and visualize the processes at large here
+These guys will help to understand and visualize the processes we find  here
 
-For example, a typical conversation may look like this
+For example, a typical conversation may look like this:
 
     User to Flo': "Say, Flo', what is the time in Berlin just now?"
     Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin just now?"
@@ -81,21 +81,21 @@ Under the surface BridgIt's split personality - which only she knows about - wil
     User to Flo': "Say, Flo', what is the time in Berlin just now?"
     Flo' to BridgIt: "Say, BridgIt, what is the time in Berlin just now?"
     --
-    BridgIt.F hears Flo'
-    BridgIt.F logs this under question #1234
-    BridgIt.F to BridgIt.W: "Say, BridgIt.W, can you ask Widget, what the time is in Berlin just now - then call me back with the answer to question #1234"
-    (BridgIt.F waits for a call regarding question #1234)
-    BridgIt.W turns to Widget…
+    BridgIt.fm hears Flo'
+    BridgIt.fm logs this under question #1234
+    BridgIt.fm to BridgIt.W: "Say, BridgIt.W, can you ask Widget, what the time is in Berlin just now - then call me back with the answer to question #1234"
+    (BridgIt.fm waits for a call regarding question #1234)
+    BridgIt.js turns to Widget…
     --
     BridgIt to Widget: "Say, Widget, what is the time in Berlin just now?"
     Widget to moment.js: "Hey, moment.js, what is the time in Berlin just now?"
     moment.js to Widget: "It's 'June 4th 2020, 5:29:14 pm'"
     Widget to BridgIt: "It's 'June 4th 2020, 5:29:14 pm'"
     --
-    BridgIt.W hears Widget…
-    BridgIt.W calls BridgIt.F and says the answer to question #1234 is "It's 'June 4th 2020, 5:29:14 pm'"
-    BridgIt.F checks she has received the answer to question #1234 and then proceeds
-    BridgIt.F turns to Flo'
+    BridgIt.js hears Widget…
+    BridgIt.js calls BridgIt.F and says the answer to question #1234 is "It's 'June 4th 2020, 5:29:14 pm'"
+    BridgIt.fm checks she has received the answer to question #1234 and then proceeds
+    BridgIt.fm turns to Flo'
     --
     BridgIt to Flo': "It's 'June 4th 2020, 5:29:14 pm'"
     Flo' to User: "It's 'June 4th 2020, 5:29:14 pm'"
@@ -103,8 +103,8 @@ Under the surface BridgIt's split personality - which only she knows about - wil
 
 Note that:
 - Flo' only sees BridgIt (and doesn't really know she has a split personality)
-- When he talks to BridgIt he is actually talking to BridgIt.F 
-- Similarly Widget only talks to BridgIt.W
+- When he talks to BridgIt he is actually talking to BridgIt.fm
+- Similarly Widget only talks to BridgIt.js
 - In general Flo' and Widget are morning grumps and tend to throw a tantrum if they speak to each other directly before they've had their morning coffee
 - That's why they speak to each other via BridgIt who ensures everybody has had their morning coffee first
 - During the day Flo' and Widget can speak to each other directly, but their relationship is so cool they never get an answer. So long as they only want to shoot off at each other - and are sure that they've had their morning coffee - that's fine.
