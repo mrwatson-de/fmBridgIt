@@ -76,6 +76,8 @@ For example, a typical conversation, "What is the time in Berlin at the moment?"
     Flo' to User: "It's 'June 4th 2020, 5:29:14 pm'"
     User thinks "Thanks Flo', then I need to take the Bluepill at dotfmp immediately!"
 
+![act_what_is_the_time_in_berlin_at_the_moment](mermaid/act_what_is_the_time_in_berlin_at_the_moment.svg)
+
 Under the surface BridgIt's split personality - which only she knows about - will be doing something like this
 
     User to Flo': "Say, Flo', what is the time in Berlin at the moment?"
@@ -100,6 +102,8 @@ Under the surface BridgIt's split personality - which only she knows about - wil
     BridgIt to Flo': "It's 'June 4th 2020, 5:29:14 pm'"
     Flo' to User: "It's 'June 4th 2020, 5:29:14 pm'"
     User thinks "Thanks Flo', then I need to take the Bluepill at dotfmp immediately!"
+
+![act_what_is_the_time_in_berlin_at_the_moment_detailed](mermaid/act_what_is_the_time_in_berlin_at_the_moment_detailed.svg)
 
 Note that:
 

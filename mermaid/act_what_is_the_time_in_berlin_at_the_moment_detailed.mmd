@@ -1,0 +1,50 @@
+sequenceDiagram
+    participant User
+    participant Flo' as FileMaker Script
+    participant BridgIt.fm as [ BridgIt.fm …
+    participant BridgIt.Q as BridgIt.Q
+
+    participant BridgIt.fm.result as .result…
+    participant BridgIt.js as … BridgIt.js ]
+    participant Widget as Widget
+    participant momentJS as moment.js
+    
+        User ->> Flo': Wossa time in Berlin at the mo'?
+        Flo' ->> BridgIt.fm: Wossa time in Berlin at the mo'?
+
+        BridgIt.fm ->> BridgIt.Q: Q[1234]='pending'
+        BridgIt.fm ->> BridgIt.js: Q 1234: Wossa time in Berlin at the mo'?
+        Note right of BridgIt.fm: <waits/loops>
+
+        BridgIt.fm --> BridgIt.Q: Q[1234]='pending'?
+        
+        BridgIt.js ->> Widget: Wossa time in Berlin at the mo'?
+
+        BridgIt.fm --> BridgIt.Q: Q[1234]='pending'?
+
+        Widget ->> momentJS:  Wossa time in Berlin at the mo'?
+        Note right of BridgIt.fm: <timeout?>
+        BridgIt.fm ->> BridgIt.Q: Q[1234]=Null
+        BridgIt.fm ->> Flo': timeout error
+        Flo' ->> User: Sorry,can't tell you just now
+
+        BridgIt.fm --> BridgIt.Q: Q[1234]='pending'?
+        
+        momentJS ->> Widget: It's 'June 4th 2020, 5:29:14 pm'
+        Widget ->> BridgIt.js: It's 'June 4th 2020, 5:29:14 pm'
+
+        BridgIt.fm --> BridgIt.Q: Q[1234]='pending'?
+        
+        BridgIt.js ->> BridgIt.fm.result: A 1234: It's 'June 4th 2020, 5:29:14 pm'
+        BridgIt.fm.result ->> BridgIt.Q: Q[1234] = It's 'June 4th 2020, 5:29:14 pm'
+
+        BridgIt.fm --> BridgIt.Q: Q[1234]='pending'?
+        Note right of BridgIt.fm: <ready>
+        BridgIt.Q ->> BridgIt.fm : Get Q[1234]
+        BridgIt.fm ->> BridgIt.Q: Q[1234]=Null
+        
+
+        BridgIt.fm ->> Flo': It's 'June 4th 2020, 5:29:14 pm'
+        Flo' ->> User: It's 'June 4th 2020, 5:29:14 pm'
+        
+        

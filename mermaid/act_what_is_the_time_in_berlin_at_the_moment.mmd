@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User
+    participant Flo'
+    participant BridgIt as BridgItModule
+    participant Widget as fmWidget
+    participant momentJS as moment.js
+    
+        Note right of User: Thx: dotfmp started?
+        User ->> Flo': Say, Flo', what is the time in Berlin at the moment?
+        Flo' ->> BridgIt: Say, BridgIt, what is the time in Berlin at the moment?
+        BridgIt ->> Widget: Say, Widget, what is the time in Berlin at the moment?
+        Widget ->> momentJS: Hey, moment.js, what is the time in Berlin at the moment?
+        momentJS ->> Widget: It's 'June 4th 2020, 5:29:14 pm'
+        Widget ->> BridgIt: It's 'June 4th 2020, 5:29:14 pm'
+        BridgIt ->> Flo': It's 'June 4th 2020, 5:29:14 pm'
+        Flo' ->> User: It's 'June 4th 2020, 5:29:14 pm'
+        
+        Note right of User: It's Bluepill time!

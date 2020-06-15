@@ -1,0 +1,19 @@
+{
+    "name": "fmbridgit",
+    "version": "0.1.0",
+    "description": "FileMaker & JavaScript modules to bridge the gap between FileMaker 19 and the WebViewer.",
+    "main": "dist/fmbridgit.cjs.js",
+    "module": "dist/fmbridgit.esm.js",
+    "browser": "dist/fmbridgit.umd.js",
+    "scripts": {
+        "docs": "jsdoc2md src/fmbridgit.js api.md"
+    },
+    "devDependencies": {
+        "babel": "~6.23.0",
+        "babel-cli": "~6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "jsdoc-to-markdown": "^6.0.1",
+        "mermaid.cli": "^0.5.1"
+    },
+    "dependencies": {}
+}
